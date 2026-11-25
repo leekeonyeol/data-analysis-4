@@ -191,5 +191,5 @@ roles = {
 }
 
 for i in range(len(header)):
-    kinds = set(row[i] for row in rows)
+    kinds = set(row[i] for row in rows)  # 셋은 중복의 값을 피한다.
     print(f"종류: {header[i]:<6} {len(kinds):>3} 가지 {roles[header[i]]}")
