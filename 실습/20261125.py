@@ -8,6 +8,7 @@
 
 import csv
 import os
+import numpy as np
 
 
 def dp(name):
@@ -641,3 +642,67 @@ print(f"OP값이 무엇인지는 확인하지 못했습니다.")
 
 print("=" * 60)
 print("실습 8개 끝. 수고하셨습니다.")
+
+# ====================================
+# 5. 배열에게 물어보는 네 가지 - shape ndim size dtype
+# ====================================
+# 데이터를 받으면 가장 먼저 하는 일이 이게 "몇줄 몇칸"인지부터 확인!
+# numpy에서는 배열에게 직접 물어본다.
+
+# shape = (행수, 열수) 꼴의 묶음으로 나온다.
+# *** (행, 열) ***
+# ndim = 차원 수. 한 줄로 늘어선 배열은 1, 표 모양은 2
+# size = 값이 모두 몇 개인가. shape의 숫자들을 곱한 값
+# attribute = 함수가 아니라 이미 가지고 있는 정보
+
+print("=" * 60)
+print("[5] 배열에게 물어보는 네 가지")
+table = np.array(
+    [[30, 15.44, 4603], [30, 18.69, 4603]]
+)  # 데이터 파일 앞 두 줄에서 세 칸만 떼 온 것입니다
+print("    table")
+print(table)
+print("    table.shape :", table.shape, "<- (행, 열)")
+print("    table.ndim  :", table.ndim, "<- 몇 차원인가")
+print("    table.size  :", table.size, "<- 값이 모두 몇 개인가")
+print("    table.dtype :", table.dtype, "<- 어떤 자료형인가")
+print(
+    "    검산:",
+    table.shape[0],
+    "x",
+    table.shape[1],
+    "=",
+    table.shape[0] * table.shape[1],
+)
+
+print()
+print("[5-1] 괄호를 붙이면")
+try:
+    table.shape()  # 속성에 괄호를 붙이면 터집니다
+except TypeError as e:
+    print("    table.shape() :", type(e).__name__, "-", e)
+
+# =====================================================================
+# 6. 모양 바꾸기 - reshape · flatten (값은 그대로, 모양만)
+# =====================================================================
+# 같은 12개 숫자를 한 줄로 늘어놓을 수도 있고, 3줄 4칸 표로 접을 수도 있습니다.
+# 값은 그대로고 보는 모양만 바뀝니다. 그게 reshape입니다.
+print("=" * 60)
+print("[6] 모양 바꾸기 - 값은 그대로, 모양만")
+seq = np.arange(12)
+print("    seq                  :", seq)
+print("    seq.reshape(3, 4)")
+print(seq.reshape(3, 4))
+print(
+    "    seq.reshape(-1, 2).shape :", seq.reshape(-1, 2).shape, "<- -1 은 '알아서 계산'"
+)
+print("    reshape(3, 4).flatten()  :", seq.reshape(3, 4).flatten())
+print("    원본 seq             :", seq, "<- reshape 도 원본을 바꾸지 않습니다")
+
+print()
+print("[6-1] 개수가 안 맞으면")
+try:
+    seq.reshape(5, 3)  # 12개를 15칸에 넣으라는 말이 됩니다
+except ValueError as e:
+    print("    seq.reshape(5, 3) :", type(e).__name__, "-", e)
+print("    12 는 3x4, 2x6, 1x12 로는 접히고 5x3 = 15 로는 안 접힙니다")
