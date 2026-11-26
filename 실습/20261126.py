@@ -550,24 +550,11 @@ print(bad_2.reshape(18, 9).sum(axis=0), bad_2.reshape(18, 9).sum(axis=0).sum())
 #
 # [예상 결과] 이런 다섯 줄이 나오면 됩니다
 #   1) 용접 162건 중 판정 0(불량)은 20건(12.3%)입니다.
-print(
-    lab.size,
-    bad_2.reshape(18, 9).sum(axis=0).sum(),
-    round(bad_2.reshape(18, 9).sum(axis=0).sum() / lab.size * 100, 1),
-)
 #   2) 불량 20건의 다섯 열 평균은 정상 142건보다 모두 낮습니다 (통전전류 4120.0 대 6020.08).
-print(weld[weld[:, 5] == 1].mean(axis=0))
-print(weld[weld[:, 5] == 0].mean(axis=0))
 
 #   3) 통전전류 표준화 값 2 기준으로 20건을 잡았고 전부 불량이었습니다. 3 기준이면 3건만 잡힙니다.
-print(bad_2.sum())
-print(bad_3.sum())
-
 #   4) 가압력 평균 8761.01 은 중앙값 9289.0 보다 낮습니다. 불량 20건이 평균을 끌어내렸습니다.
-print(
-    sum([row[1] for row in data]) / len([row[1] for row in data]),
-    np.median(np.array([row[1] for row in data])),
-)
+
 
 
 #   5) 단위, 판정 기준, 파일 순서가 시간 순서인지는 확인하지 못했습니다.
@@ -593,20 +580,19 @@ print("[실습 8] 다섯 줄 보고서")
 
 # TODO ①~⑤ 다섯 줄을 f-string 으로 찍으세요
 print(
-    lab.size,
-    bad_2.reshape(18, 9).sum(axis=0).sum(),
-    round(bad_2.reshape(18, 9).sum(axis=0).sum() / lab.size * 100, 1),
+    f"용접 {lab.size} 건 중
+    판정 불량은 {bad_2.reshape(18, 9).sum(axis=0).sum()}건
+    ({round(bad_2.reshape(18, 9).sum(axis=0).sum() / lab.size * 100, 1)}%입니다.",
 )
 
 print(weld[weld[:, 5] == 1].mean(axis=0))
 print(weld[weld[:, 5] == 0].mean(axis=0))
 
-print(bad_2.sum())
-print(bad_3.sum())
+print(f" 통전전류 표준화 값 2 기준으로 {bad_2.sum()}건을 잡았고 전부 불량이었습니다. 3 기준이면 {bad_3.sum()}건만 잡힙니다.")
 
 print(
-    sum([row[1] for row in data]) / len([row[1] for row in data]),
-    np.median(np.array([row[1] for row in data])),
+    f" 가압력 평균 {sum([row[1] for row in data]) / len([row[1] for row in data])} 은 중앙값 
+    {np.median(np.array([row[1] for row in data]))} 보다 낮습니다. 불량 20건이 평균을 끌어내렸습니다.",
 )
 
 print("단위, 판정 기준, 파일 순서가 시간 순서인지는 확인하지 못했습니다.")
