@@ -582,8 +582,9 @@ print(
     f"용접 {lab.size} 건 중 판정 불량은 {bad_2.reshape(18, 9).sum(axis=0).sum()}건 ({round(bad_2.reshape(18, 9).sum(axis=0).sum() / lab.size * 100, 1)})%입니다.",
 )
 
-print(weld[weld[:, 5] == 1].mean(axis=0))
-print(weld[weld[:, 5] == 0].mean(axis=0))
+print(
+    f" 통전전류 {weld[weld[:, 5] == 1].mean(axis=0)[3]} 대 {weld[weld[:, 5] == 0].mean(axis=0)[3]}"
+)
 
 print(
     f" 통전전류 표준화 값 2 기준으로 {bad_2.sum()}건을 잡았고 전부 불량이었습니다. 3 기준이면 {bad_3.sum()}건만 잡힙니다."
